@@ -45,14 +45,6 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup")
 	bool bIsActive;
 
-	// Respawn time after being picked up (0 for no respawn)
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup")
-	float RespawnTime;
-
-	// Whether this pickup should respawn after being collected
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup")
-	bool bShouldRespawn;
-
 	// Value that represents the "importance" of this pickup (can be used for UI indicators, etc)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup")
 	int32 PickupPriority;
@@ -72,11 +64,4 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Pickup")
 	void SetActive(bool NewActiveState);
-
-	UFUNCTION(BlueprintCallable, Category = "Pickup")
-	void Respawn();
-
-private:
-	// Handle for respawn timer
-	FTimerHandle RespawnTimerHandle;
 };

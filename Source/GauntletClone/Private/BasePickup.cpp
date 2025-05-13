@@ -28,8 +28,6 @@ ABasePickup::ABasePickup()
 	// Set default values
 	bIsActive = true;
 	LifeSpan = -1.0f; // By default, pickups don't despawn automatically
-	RespawnTime = 0.0f; // By default, pickups don't respawn
-	bShouldRespawn = false;
 	PickupPriority = 1;
 }
 
@@ -73,16 +71,8 @@ void ABasePickup::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActo
 		// Deactivate pickup
 		SetActive(false);
 
-		// Handle respawning if needed
-		if (bShouldRespawn && RespawnTime > 0.0f)
-		{
-			GetWorldTimerManager().SetTimer(RespawnTimerHandle, this, &ABasePickup::Respawn, RespawnTime, false);
-		}
-		else if (!bShouldRespawn)
-		{
-			// If the pickup shouldn't respawn, destroy it
-			Destroy();
-		}
+		// Destroy the pickup after it's been collected
+		Destroy();
 	}
 }
 
@@ -101,10 +91,4 @@ void ABasePickup::SetActive(bool NewActiveState)
 
 	// If pickup is inactive, disable collision
 	CollisionSphere->SetCollisionEnabled(bIsActive ? ECollisionEnabled::QueryOnly : ECollisionEnabled::NoCollision);
-}
-
-void ABasePickup::Respawn()
-{
-	// Reactivate the pickup
-	SetActive(true);
 }
