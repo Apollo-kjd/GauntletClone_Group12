@@ -2,7 +2,7 @@
 
 #include "KeyPickup.h"
 #include "Kismet/GameplayStatics.h"
-// Include your player character header here
+// #Include player character header here
 // #include "GauntletCharacter.h"
 
 AKeyPickup::AKeyPickup()
@@ -33,8 +33,8 @@ void AKeyPickup::OnPickedUp(AActor* PickupActor)
     // Call parent implementation
     Super::OnPickedUp(PickupActor);
 
-    // Check if the actor is a character (you might want to check for your specific player class)
-    // AYourPlayerCharacter* PlayerCharacter = Cast<AYourPlayerCharacter>(PickupActor);
+    // Check if the actor is a character (check for your specific player class)
+    // APlayerCharacter* PlayerCharacter = Cast<APlayerCharacter>(PickupActor);
     // if (PlayerCharacter)
     // {
     //     // Add key to player's inventory
@@ -45,7 +45,7 @@ void AKeyPickup::OnPickedUp(AActor* PickupActor)
     UE_LOG(LogTemp, Display, TEXT("Key pickup collected: KeyID=%d, SingleUse=%s"),
         KeyID, bSingleUse ? TEXT("true") : TEXT("false"));
 
-    // You could also broadcast an event that doors can listen to
+    // Potentially broadcast an event that doors can listen to
     // This is an alternative to having the player store keys
     // FString EventName = FString::Printf(TEXT("KeyCollected_%d"), KeyID);
     // UGameplayStatics::BroadcastDynamicEvent(GetWorld(), FName(*EventName), GetInstigator());

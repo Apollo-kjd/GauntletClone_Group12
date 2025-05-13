@@ -3,7 +3,7 @@
 #include "PotionPickup.h"
 #include "Kismet/GameplayStatics.h"
 #include "EngineUtils.h"
-// Include your enemy base class header here
+// Include enemy base class header here
 // #include "GauntletEnemy.h"
 
 APotionPickup::APotionPickup()
