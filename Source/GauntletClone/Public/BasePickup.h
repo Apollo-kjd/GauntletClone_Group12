@@ -1,4 +1,5 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+//Copyright Epic Games, Inc. All Rights Reserved.
+//Brandon
 
 #pragma once
 
@@ -18,47 +19,45 @@ class GAUNTLETCLONE_API ABasePickup : public AActor
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this actor's properties
+	//Sets default values for this actor's properties
 	ABasePickup();
 
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	// Function called when something overlaps with the collision sphere
+	//Called when something overlaps with the collision sphere
 	UFUNCTION()
 	virtual void OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-	// Function that will be implemented by child classes to define specific pickup behavior
+	//Will be implemented by child classes to define specific pickup behavior
 	UFUNCTION(BlueprintCallable, Category = "Pickup")
 	virtual void OnPickedUp(AActor* PickupActor);
 
-	// The amount of time this pickup remains in the world before despawning (-1 for never despawn)
+	//The amount of time this pickup remains in the world before despawning (-1 for never despawn)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup")
 	float LifeSpan;
 
-	// Whether the pickup is currently active and can be collected
+	//Whether the pickup is currently active and can be collected
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup")
 	bool bIsActive;
 
-	// Value that represents the "importance" of this pickup (can be used for UI indicators, etc)
+	//Value that represents the "importance" of this pickup (can be used for UI indicators, etc)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup")
 	int32 PickupPriority;
 
-	// The mesh for this pickup item
+	//The mesh for this pickup item
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UStaticMeshComponent* PickupMesh;
 
-	// Sphere collision component for detecting overlaps
+	//Sphere collision component for detecting overlaps
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	USphereComponent* CollisionSphere;
 
 public:
-	// Getters and setters
+	//Getters and setters
 	UFUNCTION(BlueprintCallable, Category = "Pickup")
 	bool IsActive() const { return bIsActive; }
 

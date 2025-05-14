@@ -1,94 +1,86 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+//Copyright Epic Games, Inc. All Rights Reserved.
+//Brandon
 
 #include "BasePickup.h"
 #include "Kismet/GameplayStatics.h"
 
-// Sets default values
+//Sets default values and Creates Mesh
 ABasePickup::ABasePickup()
 {
-	// Set this actor to call Tick() every frame
+	//Sets this actor to call Tick() every frame
 	PrimaryActorTick.bCanEverTick = true;
 
-	// Create components
+	//Creates Collision Sphere
 	CollisionSphere = CreateDefaultSubobject<USphereComponent>(TEXT("CollisionSphere"));
 	RootComponent = CollisionSphere;
 
-	// Set default collision responses
+	//Set default collision responses
 	CollisionSphere->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
 	CollisionSphere->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	CollisionSphere->SetCollisionResponseToAllChannels(ECR_Ignore);
 	CollisionSphere->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
 	CollisionSphere->SetSphereRadius(50.0f);
 
-	// Create and attach the mesh component
+	//Creates and attaches the mesh component
 	PickupMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PickupMesh"));
 	PickupMesh->SetupAttachment(RootComponent);
 	PickupMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	// Set default values
 	bIsActive = true;
-	LifeSpan = -1.0f; // By default, pickups don't despawn automatically
+	LifeSpan = -1.0f;
 	PickupPriority = 1;
 }
 
-// Called when the game starts or when spawned
 void ABasePickup::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// Bind the overlap event
+	//Bind overlap event
 	CollisionSphere->OnComponentBeginOverlap.AddDynamic(this, &ABasePickup::OnOverlapBegin);
 
-	// Set lifespan if specified
+	//Set lifespan
 	if (LifeSpan > 0.0f)
 	{
 		SetLifeSpan(LifeSpan);
 	}
 }
 
-// Called every frame
 void ABasePickup::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	// Optionally add rotating or bobbing animation here
 }
 
+//Basic Item Functionality
 void ABasePickup::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
 	bool bFromSweep, const FHitResult& SweepResult)
 {
-	// If pickup is not active, ignore overlap
+	//If pickup is not active, ignore overlap
 	if (!bIsActive) return;
 
-	// Check if the overlapping actor can pick up items
-	// This would typically be more specific in a full implementation
+	//Check if the overlapping actor can pick up items
 	if (OtherActor && OtherActor != this)
 	{
-		// Call the OnPickedUp function that child classes will implement
 		OnPickedUp(OtherActor);
-
-		// Deactivate pickup
 		SetActive(false);
-
-		// Destroy the pickup after it's been collected
 		Destroy();
 	}
 }
 
 void ABasePickup::OnPickedUp(AActor* PickupActor)
 {
-	// Base implementation does nothing
-	// Child classes should override this to provide specific pickup behavior
+	//Child classes should override this to provide specific pickup behavior
 }
 
+//Handles Active Status
 void ABasePickup::SetActive(bool NewActiveState)
 {
 	bIsActive = NewActiveState;
 
-	// Update visibility to match active state
+	//Update visibility to match active state
 	SetActorHiddenInGame(!bIsActive);
 
-	// If pickup is inactive, disable collision
+	//If pickup is inactive, disable collision
 	CollisionSphere->SetCollisionEnabled(bIsActive ? ECollisionEnabled::QueryOnly : ECollisionEnabled::NoCollision);
 }
