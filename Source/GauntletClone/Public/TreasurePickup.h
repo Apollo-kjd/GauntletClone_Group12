@@ -1,4 +1,5 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+//Copyright Epic Games, Inc. All Rights Reserved.
+//Brandon
 
 #pragma once
 
@@ -15,14 +16,14 @@ class GAUNTLETCLONE_API ATreasurePickup : public ABasePickup
     GENERATED_BODY()
 
 public:
-    // Sets default values for this pickup's properties
+    //Sets default values for this pickup's properties
     ATreasurePickup();
 
 protected:
-    // Override the OnPickedUp function to implement score increase
+    //Override the OnPickedUp function to implement score increase
     virtual void OnPickedUp(AActor* PickupActor) override;
 
-    // Amount of score this treasure gives
+    //Amount of score this treasure gives
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup|Treasure")
     int32 ScoreValue;
 };
