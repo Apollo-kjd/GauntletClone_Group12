@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+//Copyright Epic Games, Inc. All Rights Reserved.
 //Brandon
 
 #include "FoodPickup.h"
@@ -17,7 +17,7 @@ AFoodPickup::AFoodPickup()
     if (MeshAsset.Succeeded())
     {
         PickupMesh->SetStaticMesh(MeshAsset.Object);
-        PickupMesh->SetRelativeScale3D(FVector(0.3f, 0.3f, 0.1f)); // Make it look like a small food item
+        PickupMesh->SetRelativeScale3D(FVector(0.3f, 0.3f, 0.1f));
     }
 }
 

@@ -16,7 +16,7 @@ ABasePickup::ABasePickup()
 
 	//Set default collision responses
 	CollisionSphere->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
-	CollisionSphere->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	CollisionSphere->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	CollisionSphere->SetCollisionResponseToAllChannels(ECR_Ignore);
 	CollisionSphere->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
 	CollisionSphere->SetSphereRadius(50.0f);
@@ -24,7 +24,7 @@ ABasePickup::ABasePickup()
 	//Creates and attaches the mesh component
 	PickupMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PickupMesh"));
 	PickupMesh->SetupAttachment(RootComponent);
-	PickupMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	PickupMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	// Set default values
 	bIsActive = true;
