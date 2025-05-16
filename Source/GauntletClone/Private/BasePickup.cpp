@@ -16,7 +16,7 @@ ABasePickup::ABasePickup()
 
 	//Set default collision responses
 	CollisionSphere->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
-	CollisionSphere->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	CollisionSphere->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	CollisionSphere->SetCollisionResponseToAllChannels(ECR_Ignore);
 	CollisionSphere->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
 	CollisionSphere->SetSphereRadius(50.0f);
