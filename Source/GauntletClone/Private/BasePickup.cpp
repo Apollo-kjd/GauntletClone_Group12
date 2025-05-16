@@ -24,7 +24,7 @@ ABasePickup::ABasePickup()
 	//Creates and attaches the mesh component
 	PickupMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PickupMesh"));
 	PickupMesh->SetupAttachment(RootComponent);
-	PickupMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	PickupMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 
 	// Set default values
 	bIsActive = true;
